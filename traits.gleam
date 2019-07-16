@@ -48,3 +48,16 @@ implement Person: Named {
 pub fn hello_kitty(cat: Cat) -> String {
   string.append("Hello ", name(cat))
 }
+
+// Deriving trait implementations
+
+pub enum Size =
+  | Small
+  | Medium
+  | Large
+
+derive Size: Show
+derive Size: Eq
+derive Size: Order
+derive Size: FromAny
+derive Size: ToAny
