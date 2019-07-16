@@ -23,7 +23,7 @@ where X: Named, Y: Named {
 pub enum Cat =
   | Cat(String)
 
-implement Pet: Named {
+implement Cat: Named {
   fn name(self) -> String {
     let Cat(name) = self
     name
