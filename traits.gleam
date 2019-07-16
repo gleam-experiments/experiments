@@ -2,7 +2,7 @@ import gleam/string
 
 // Define
 
-trait Named {
+pub trait Named {
   fn name(self) -> String
 }
 
@@ -10,12 +10,12 @@ trait Named {
 
 fn whats_the_name(n: T) -> String
 where T: Named {
-  {"the name is:", name(n)}
+  string.append("the name is:", name(n))
 }
 
-fn two_names(x: X, y: Y) -> String
+fn two_names(x: X, y: Y) -> {String, String}
 where X: Named, Y: Named {
-  {"the name is:", name(n)}
+  {name(x), name(y)}
 }
 
 // Define some types that implement the trait
@@ -61,3 +61,10 @@ derive Size: Eq
 derive Size: Order
 derive Size: FromAny
 derive Size: ToAny
+
+pub struct Box(b) {
+  boxed: b
+}
+
+derive Box(Boxed): Eq
+where Boxed: Eq
