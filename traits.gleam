@@ -13,9 +13,9 @@ where T: Named {
   string.append("the name is:", name(n))
 }
 
-fn two_names(x: X, y: Y) -> {String, String}
+fn two_names(x: X, y: Y) -> struct(String, String)
 where X: Named, Y: Named {
-  {name(x), name(y)}
+  struct(name(x), name(y))
 }
 
 // Define some types that implement the trait
