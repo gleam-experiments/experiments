@@ -1,39 +1,33 @@
-import map:Map
+pub enum Method {
+  Get
+  Head
+  Post
+  Put
+  Delete
+  Connect
+  Options
+  Trace
+  Patch
+}
 
-pub enum Method =
-  | Get
-  | Head
-  | Post
-  | Put
-  | Delete
-  | Connect
-  | Options
-  | Trace
-  | Patch;
+pub struct Header {
+  name: String
+  value: String
+}
 
-pub type Header =
-  Tuple(String, String)
+pub struct Request(assigns) {
+  method: Method
+  path: List(String)
+  headers: List(Header)
+  body: Result(Nil, String)
+  assigns: assigns
+}
 
-pub type Request(assigns) =
-  {
-    method: Method,
-    path: List(String),
-    headers: List(Header),
-    body: Result(Unit, String)
-    assigns: assigns
-  };
-
-pub type Response =
-  {Int, List(Header), String};
-
-// A Coin application is a module with these functions:
-//
-// - handle: Takes a Request record and returns a Response record
-//
-pub type App =
-  module {
-    fn handle(Request({})) -> Response
-  };
+pub struct Response {
+  status: Int
+  headers: List(Header)
+  body: String
+}
 
 // We have a concept of middleware which can be chained to preprocess a
 // request.
@@ -42,9 +36,10 @@ pub type App =
 // continue through the middleware stack, while `Send` causes the server to
 // immediately send a response, skipping any following middleware.
 //
-pub enum MiddlewareAction(assigns) =
-  | Next(Request(assigns))
-  | Send(Response);
+pub enum MiddlewareAction(assigns) {
+  Next(Request(assigns))
+  Send(Response)
+}
 
 pub type Middleware(assigns_in, assigns_out) =
   fn(Request(assigns_in)) -> MiddlewareAction(assigns_out);

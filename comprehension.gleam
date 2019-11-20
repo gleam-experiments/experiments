@@ -1,5 +1,3 @@
-import result:Ok
-
 pub fn list() {
   // Unsure about the value of this one.
   // The syntax clashes with the matching bind syntax below, which I prefer.

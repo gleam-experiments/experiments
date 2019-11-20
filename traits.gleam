@@ -73,8 +73,8 @@ pub fn hello_kitty(cat: Cat) -> String {
 // hello_kitty(Cat) ->
 //     gleam@string:append(<<"the name is: ">>, namedTrait_name(N)).
 
-// We may want to be able have implementations that depend on other
-// implementations
+// We may want to be able have implementations that depend on the
+// implementation of their parameter type
 
 pub struct Wrapper(x) {
   value: x
