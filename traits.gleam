@@ -8,7 +8,7 @@ pub trait Named {
 
 // compiled to
 // -record(namedTrait, {name=undefined}).
-// namedTrait_name(Trait) -> element(1, Trait).
+// namedTrait_name(Trait) -> element(2, Trait).
 
 // Use the trait, taking any arguments that implement the trait
 
@@ -20,13 +20,13 @@ fn whats_the_name(n: Named) -> String {
 // whats_the_name(N, N_Named) ->
 //     gleam@string:append(<<"the name is: ">>, (namedTrait_name(N_Named))(N)).
 
-fn two_names(x: Named, y: Named) -> struct(String, String) {
-  struct(name(x), name(y))
+fn have_same_name(x: Named, y: Named) -> Bool {
+  name(x) == name(y)
 }
 
 // compiles to
-// two_names(X, X_Named, Y, Y_Named) ->
-//     {(namedTrait_name(X_Named))(X), (namedTrait_name(Y_Named))(Y)}.
+// have_same_name(X, X_Named, Y, Y_Named) ->
+//     (namedTrait_name(X_Named))(X) =:= (namedTrait_name(Y_Named))(Y).
 
 // Define some types that implement the trait
 
@@ -43,7 +43,8 @@ let trait Cat: Named {
 
 // compiles to
 // namedTrait_Cat() ->
-//     {fun namedTrait_Cat_name/1}.
+//     {namedTrait,
+//      fun namedTrait_Cat_name/1}.
 // namedTrait_Cat_name(Self) ->
 //     {cat, Name} = Self,
 //     Name.
@@ -89,7 +90,8 @@ let trait Wrapper(x: Named): Named {
 
 // compiles to
 // namedTrait_Wrapper_name(X) ->
-//     {namedTrait_trait_Wrapper_name(X)}.
+//     {namedTrait,
+//      namedTrait_trait_Wrapper_name(X)}.
 // namedTrait_Wrapper_name(X_Name) ->
 //     fun(Self) ->
 //         {wrapper, Name} = X,
@@ -97,6 +99,7 @@ let trait Wrapper(x: Named): Named {
 //     end.
 
 // Deriving trait implementations
+// The compiler can have built in support for a bunch of traits
 
 pub enum Size {
   Small
@@ -109,9 +112,3 @@ derive trait Size: Eq
 derive trait Size: Order
 derive trait Size: FromAny
 derive trait Size: ToAny
-
-pub struct Box(b) {
-  boxed: b
-}
-
-derive trait Box(Eq): Eq
