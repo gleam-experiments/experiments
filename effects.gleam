@@ -21,7 +21,7 @@ pub fn unsafe_unwrap(x: Result(a, e)) effect(Assert) -> a
 // This function calls a function that has the IO effect and another that has
 // the Assert effect, so it has both the IO and Assert effects. If the
 // annotation was not given this would be inferred.
-pub fn get_content() -> effect(IO, Assert) String
+pub fn get_content() effect(IO, Assert) -> String
 {
   read_line() |> unsafe_unwrap
 }
