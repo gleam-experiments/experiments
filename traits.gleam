@@ -72,7 +72,7 @@ pub fn hello_kitty(cat: Cat) -> String {
 // There's no need to pass around a trait object here as it can be statically
 // resolved. compiled to
 // hello_kitty(Cat) ->
-//     gleam@string:append(<<"the name is: ">>, namedTrait_name(N)).
+//     gleam@string:append(<<"the name is: ">>, namedTrait_Cat_name(N)).
 
 // We may want to be able have implementations that depend on the
 // implementation of their parameter type
