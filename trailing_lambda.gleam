@@ -10,9 +10,9 @@ pub fn one_example() -> Promise(Int) {
 }
 
 pub fn one_example_with() -> Promise(Int) {
-  with x <- async_function() |> promise.then
+  with x = async_function() |> promise.then
   let y = sync_function()
-  with z <- async_function() |> promise.then
+  with z = async_function() |> promise.then
   promise.resolve(x + y + z)
 }
 
